@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .nav-list {
+        overflow-x: auto; /* Enables horizontal scrolling */
+        white-space: nowrap; /* Prevents wrapping */
+        padding: 10px; /* Space around the nav list */
+        background-color: #f8f8f8; /* Light background for contrast */
+        border-radius: 10px; /* Optional: rounded corners */
+    }
+
+    .scrollable-list {
+        list-style-type: none; /* Removes bullet points from the list */
+        padding: 0;
+        margin: 0;
+        display: flex; /* Align items in a row */
+        gap: 15px; /* Adds spacing between items */
+        padding-left: 20px; /* Extra space at the start */
+        padding-right: 20px; /* Extra space at the end */
+    }
+
+    .scrollable-list li {
+        display: inline-block; /* Keeps items on one line */
+        background-color: #ff6f61; /* Color for list items */
+        color: white; /* Text color */
+        padding: 10px 20px; /* Spacing inside each item */
+        border-radius: 5px; /* Rounded corners for list items */
+        cursor: pointer; /* Pointer cursor for interaction */
+        white-space: nowrap; /* Prevents text from wrapping */
+        transition: background-color 0.3s; /* Smooth hover transition */
+    }
+
+    .scrollable-list li:hover {
+        background-color: #e05a4f; /* Darken on hover */
+    }</style>
+<div class="nav-list">
+    <ul class="scrollable-list">
+        {% for f in food_types %}
+        <li>{{ f.name }}</li>
+        {% endfor %}
+    </ul>
+</div>
+<!-- Food Section -->
+<section class="food-section">
+    <div class="container">
+        <h1 class="section-title">Delicious Menu</h1>
+
+        <div class="row">
+            {% for food in foods %}
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'food_details' food.id %}">
+                    <div class="card food-card">
+                        {% if food.photo %}
+                        <img src="{{ food.photo.url }}" alt="{{ food.name }}" class="card-img-top food-photo">
+                        {% else %}
+                        <img src="{% static 'images/default-food.jpg' %}" alt="Food Image"
+                             class="card-img-top food-photo">
+                        {% endif %}
+                        <div class="food-info">
+                            <h5 class="food-title">{{ food.name }}</h5>
+                            <p class="food-type">{{ food.food_type.name }}</p>
+                            <p class="ingredients">Ingredients: {{ food.ingredients }}</p>
+                            <p class="price">$ {{ food.price }}</p>
+                            <p class="price"> {{food.views}} 👁️ </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

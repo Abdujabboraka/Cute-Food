@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background */
+            color: #343a40; /* Dark text */
+            font-family: 'Quicksand', sans-serif; /* Cute font */
+        }
+
+        .form-container {
+            max-width: 500px; /* Limit width for form */
+            margin: 50px auto; /* Center the form */
+            padding: 20px; /* Padding around the form */
+            background-color: #ffffff; /* White background for the form */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        h2 {
+            text-align: center; /* Center title */
+            color: #ff6f61; /* Coral color */
+            margin-bottom: 20px; /* Spacing below title */
+        }
+
+        .form-group {
+            margin-bottom: 15px; /* Space between form groups */
+        }
+
+        label {
+            font-weight: bold; /* Bold labels */
+            color: #343a40; /* Dark label color */
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            border: 1px solid #ced4da; /* Light border */
+            border-radius: 5px; /* Rounded input */
+            padding: 10px; /* Padding inside inputs */
+            width: 100%; /* Full width inputs */
+            transition: border-color 0.3s; /* Smooth border color transition */
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #ff6f61; /* Coral border on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        button {
+            background-color: #ff6f61; /* Coral button background */
+            color: #ffffff; /* White text */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded button */
+            padding: 10px 15px; /* Padding for button */
+            font-size: 16px; /* Button font size */
+            width: 100%; /* Full width button */
+            transition: background-color 0.3s; /* Smooth background color transition */
+        }
+
+        button:hover {
+            background-color: #e55347; /* Darker coral on hover */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+    </style>
+
+
+
+    <div class="form-container">
+        <h2>Add Food Item</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.food_type.label_tag }}
+                {{ form.food_type }}
+            </div>
+            <div class="form-group">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                {{ form.ingredients.label_tag }}
+                {{ form.ingredients }}
+            </div>
+            <div class="form-group">
+                {{ form.price.label_tag }}
+                {{ form.price }}
+            </div>
+            <div class="form-group">
+                {{ form.photo.label_tag }}
+                {{ form.photo }}
+            </div>
+            <button type="submit">Add Food</button>
+        </form>
+    </div>
+
+{% endblock content %}

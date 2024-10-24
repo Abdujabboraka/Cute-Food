@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    body {
+        background-color: #f4f4f4; /* Light grey background */
+        font-family: 'Arial', sans-serif; /* Font style */
+    }
+    .food-details-container {
+        max-width: 800px; /* Max width for the detail view */
+        margin: 50px auto; /* Centered margin */
+        background: white; /* White background for contrast */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+        padding: 20px; /* Inner padding */
+        text-align: center; /* Centered text */
+        transition: transform 0.3s; /* Animation for hover effect */
+    }
+    .food-details-container:hover {
+        transform: scale(1.02); /* Slightly enlarge on hover */
+    }
+    h2 {
+        color: #ff6f61; /* Coral color for the title */
+        margin-bottom: 20px; /* Spacing below title */
+    }
+    .food-image {
+        max-width: 100%; /* Responsive image */
+        border-radius: 10px; /* Rounded corners for image */
+        margin-bottom: 20px; /* Spacing below image */
+    }
+    .ingredients {
+        font-size: 18px; /* Slightly larger font for ingredients */
+        color: #555; /* Dark grey text color */
+        margin: 15px 0; /* Vertical spacing */
+    }
+    .price {
+        font-size: 24px; /* Larger font for price */
+        color: #28a745; /* Green color for price */
+        margin: 15px 0; /* Vertical spacing */
+    }
+    .btn-back {
+        background-color: #ff6f61; /* Button color */
+        color: white; /* Text color */
+        margin-top: 20px; /* Spacing above button */
+        transition: background-color 0.3s; /* Smooth transition */
+    }
+    .btn-back:hover {
+        background-color: #e05a4f; /* Darker coral on hover */
+    }
+</style>
+
+<div class="food-details-container">
+    <h2>{{ food.name }}</h2>
+    {% if food.photo %}
+    <img src="{{ food.photo.url }}" alt="{{ food.name }}" class="card-img-top food-photo">
+    {% else %}
+    <img src="{% static 'images/default-food.jpg' %}" alt="Food Image"
+         class="card-img-top food-photo">
+    {% endif %}
+
+    <p class="ingredients"><strong>Ingredients:</strong> {{ food.ingredients }}</p>
+    <p class="price">Price: ${{ food.price }}</p>
+    <a href="{% url 'homepage' %}" class="btn btn-back btn-block">Back to Homepage</a>
+
+    {% if perms.home.change_food %}
+    <a href="{% url 'edit_food' food.id %}">
+        <button type="button" class="btn btn-back btn-block" data-toggle="modal" data-target="#editFoodModal">
+            Edit Food
+        </button>
+    </a>
+    {% endif %}
+    {% if perms.home.delete_food %}
+    <a href="{% url 'delete_food' food.id %}">
+        <button type="button" class="btn btn-back btn-block" data-toggle="modal" data-target="#deleteFoodModal">
+            Delete Food
+        </button>
+    </a>
+    {% endif %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock content %}

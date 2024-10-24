@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Food Menu</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+       :root {
+    --primary-color: #ffb6c1; /* Light Pink */
+    --secondary-color: #ffa07a; /* Light Salmon */
+    --accent-color: #ff69b4; /* Hot Pink */
+    --light-bg: #fffaf0; /* Light Ivory */
+    --dark-bg: #2e2e4f; /* Cute soft dark blue */
+    --light-text: #333;
+    --dark-text: #f0e5e5;
+}
+
+body.light-mode {
+    background-color: var(--light-bg);
+    color: var(--light-text);
+}
+
+body.dark-mode {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+.navbar {
+    background-color: var(--primary-color);
+    border-bottom: 4px solid var(--accent-color);
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 1.8rem;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.btn-custom {
+    background-color: #ff6f61; /* Button color */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #e05a4f;
+}
+
+.toggle-switch {
+    cursor: pointer;
+    color: white;
+    font-size: 1.2rem;
+    transition: color 0.3s; /* Added transition for hover effect */
+}
+
+.food-section {
+    padding: 50px 0;
+}
+
+.food-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--light-bg);
+}
+
+.food-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.food-photo {
+    height: 250px;
+    object-fit: cover;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.food-info {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 0 0 20px 20px;
+}
+
+.food-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.food-type {
+    color: var(--secondary-color);
+}
+
+.ingredients {
+    font-size: 1rem;
+    color: black;
+}
+
+.price {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: var(--accent-color);
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 4px solid var(--accent-color);
+}
+
+footer p {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .navbar {
+    background-color: var(--dark-bg);
+}
+
+body.dark-mode .food-card {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-mode .food-info {
+    background-color: #3e3e5f;
+}
+
+body.dark-mode .price {
+    color: #ff69b4; /* Hot Pink */
+}
+
+body.dark-mode .food-title {
+    color: #ffb6c1; /* Soft Pink for titles in dark mode */
+}
+
+/* General Styling */
+.cute-navbar {
+    background-color: #fdf4f4;
+    border-radius: 12px;
+    padding: 15px 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Welcome Message */
+.welcome-message h3 {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #ff6f61;
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+/* Button Styling */
+.btn-pastel {
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 8px 15px;
+    font-size: 1rem;
+}
+
+.btn-pastel-pink {
+    background-color: #ffcccc;
+}
+
+.btn-pastel-green {
+    background-color: #ccffcc;
+}
+
+.btn-pastel-red {
+    background-color: #ff9999;
+}
+
+.btn-pastel-blue {
+    background-color: #99ccff;
+}
+
+/* Hover Effects */
+.btn-pastel:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+.btn-pastel-pink:hover {
+    background-color: #ffb3b3;
+}
+
+.btn-pastel-green:hover {
+    background-color: #b3ffb3;
+}
+
+.btn-pastel-red:hover {
+    background-color: #ff8080;
+}
+
+.btn-pastel-blue:hover {
+    background-color: #80bfff;
+}
+
+/* Toggle Switch */
+.toggle-switch:hover {
+    color: #ff9966;
+    transform: scale(1.1);
+}
+
+/* Icons Styling */
+.navbar-brand {
+    font-size: 1.5rem;
+    color: #ff6f61;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Centering and Spacing */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+
+
+
+
+</head>
+
+<body>   <!-- Navbar -->
+<div class="container d-flex justify-content-between align-items-center py-3 cute-navbar">
+    <!-- Homepage and Add Food Links -->
+    <div class="navbar-nav">
+        <a class="navbar-brand" href="{% url 'homepage' %}">🏠︎ Tasty Bites</a>
+        {% if perms.home.change_food %}
+        <a href="{% url 'food_form' %}" class="btn btn-sm btn-pastel-pink ml-3">🍔 Add Food +</a>
+        <a href="{% url 'food_type_form' %}" class="btn btn-sm btn-pastel-green ml-2">🍱 Add Food Type +</a>
+        {% endif %}
+    </div>
+
+    <!-- Welcome Message -->
+    <div class="text-center welcome-message">
+        {% if user.is_authenticated %}
+        <h3>😊 Welcome, {{ user.username }}!</h3>
+        {% else %}
+        <h3>👋 Welcome, Guest!</h3>
+        {% endif %}
+    </div>
+
+    <!-- Mode Toggle and Login/Logout Button -->
+    <div class="d-flex align-items-center">
+        <span class="toggle-switch me-3" onclick="toggleMode()">🌙 Night Mode</span>
+
+        <!-- Login/Logout Button -->
+        <div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="btn btn-sm btn-pastel-red">🚪 Logout</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-sm btn-pastel-blue">🔑 Login</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+{% block content %}
+
+{% endblock content %}
+
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Tasty Bites. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Load night mode by default or user preference
+    function loadDefaultMode() {
+        const userPreference = localStorage.getItem('mode');
+        if (userPreference === 'dark' || !userPreference) {
+            document.body.classList.add('dark-mode');
+            document.querySelector('.toggle-switch').textContent = '☀️ Light Mode';
+        } else {
+            document.querySelector('.toggle-switch').textContent = '🌙 Night Mode';
+        }
+    }
+
+    // Toggle between light and dark mode
+    function toggleMode() {
+        const body = document.body;
+        body.classList.toggle('dark-mode');
+        const isDarkMode = body.classList.contains('dark-mode');
+        document.querySelector('.toggle-switch').textContent = isDarkMode ? '☀️ Light Mode' : '🌙 Night Mode';
+        localStorage.setItem('mode', isDarkMode ? 'dark' : 'light');
+    }
+
+    // Call function to load mode on page load
+    window.onload = loadDefaultMode;
+</script>
+
+</body>
+</html>
